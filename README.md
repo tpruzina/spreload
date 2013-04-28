@@ -12,6 +12,28 @@ Usage: spreload [[OPT_PATH]] || pipe(stdin)
 *standard libraries used only (virtually no dependencies on desktop)<br>
 *Fairly dumb tool ;-)<br>
 
+Firefox startup time measurements<br>
+-tested using about:startup plugin
+<pre> https://addons.mozilla.org/en-US/firefox/addon/about-startup/ </pre>
+sessionRestored -- timing was considered
+-all caches were dropped prior to startup
+
+<pre>
+$ firefox
+sessionRestored = 11404 (ms)
+$ time spreload ~/.mozilla/ && firefox
+sessionRestored = 8825 (ms)
+time spreload = 0.174 (s*,total)
+TOTAL TIME WITH SPRELOAD = 8999 (ms)
+
+SPEEDUP = avgfirefox / avgspreloadfirefox = 1.267 -> ~27% speedup (cold start)
+
+Note: Averaged from 3 runs with 3 windows and several tabs (same ff settings),
+in all cases deviation was <500ms compared to average.
+
+
+</pre>
+
 Any suggestions or bugreports are wellcome.
 
 <pre>
