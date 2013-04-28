@@ -23,20 +23,20 @@
 
 #include <assert.h>
 
-char * test = "/home/tomas/projects/lictp/test";
 struct stat *st = NULL;
 
 
-void load_file(char* path)
+int load_file(char* path)
 {
 	int fd = open(path, O_RDONLY|O_NOCTTY );
 	if(fd == -1)
-		return;
+		return -1;
 	// get file size (amongst other things)
 	fstat(fd, st);
 	// preload file
 	readahead(fd,0, st->st_size);
 	close(fd);
+	return 0;
 }
 
 int list_dir(char *dir)
@@ -49,8 +49,8 @@ int list_dir(char *dir)
 		return -1;
 
 	// skip ".." and "." , end on error
-	if(!readdir(d) || !readdir(d))
-		return -1;
+	readdir(d);
+	readdir(d);
 	
 	while((dent = readdir(d)) != NULL)
 	{
@@ -60,30 +60,56 @@ int list_dir(char *dir)
 		else if(dent->d_type == DT_REG)
 			load_file(dent->d_name);
 	}
+
 	closedir(d);
+	return 0;
 }
+
+int parse_stdin()
+{
+	char *line = NULL;
+	char *ptr = NULL;
+	size_t n;
+	while(getline(&line, &n, stdin) != -1)
+	{
+		if(!line)
+			return -1;
+
+		// todo: remove this thingy, removes newline char
+		for(ptr=line; *ptr != '\n' && *ptr != '\0'; ptr++)
+			;
+		*ptr= '\0';
+		
+		// interpret line as 'directory', else read file
+		if(list_dir(line) == -1)
+			if(load_file(line) == -1)
+			{
+				free(line);
+				return -1;;
+			}
+	}
+	free(line);
+	return 0;
+}
+
 
 int main( int argc, char** argv )
 {
-
 	st = malloc(sizeof(struct stat));
 	if(!st)
 		return -1;
 	
 	if(argc == 1)
-	{
-		// read from pipe
-		;
-	}
+		return parse_stdin();
 	else if (argc == 2)
 	{
-		//parse file or directory
+
 	}
 	else
+	{
+		fprintf(stderr,"USAGE: <%s> <FILE/DIR>\n",argv[0]);
 		return -1;
-
-	list_dir(".");
-	//load_file(test);
+	}
 	return 0;
 }
 

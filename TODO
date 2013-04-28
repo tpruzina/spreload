@@ -1,0 +1,2 @@
+optimize redundant reads of directories/file (via ATIME manipulation???)
+
