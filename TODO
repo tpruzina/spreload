@@ -1,2 +1,5 @@
 optimize redundant reads of directories/file (via ATIME manipulation???)
-
+preload inodes
+add consistent error reports / errretcodes
+add support for symlinks
+test, test, test
