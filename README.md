@@ -5,8 +5,10 @@ Simple preload tool
 
 Usage: spreload [[OPT_PATH]] || pipe(stdin)
 
+*preloads files into page cache<br>
+*does not (yet) optimize acces to hdd (consecutive reading of blocks)<br>
+*any gain on ssd's is doubtful due to low access times<br>
 *should work on recent linux distros (>=linux 2.4.13,>=glibc-2.3)<br>
-*one simple C file<br>
 *originally written to speed up loading of firefox profile<br>
 *readahead() call used for preloading<br>
 *standard libraries used only (virtually no dependencies on desktop)<br>
@@ -28,12 +30,13 @@ TOTAL TIME WITH SPRELOAD = 8999 (ms)
 
 SPEEDUP = avgfirefox / avgspreloadfirefox = 1.267 -> ~27% speedup (cold start)
 
-Note1: Averaged from 3 runs with 3 windows and several tabs (same ff settings),
+Note1: Averaged from 3 runs and several tabs (same ff settings),
 in all cases deviation was <500ms compared to average.
 Note2: Only userprofile and extensions were preloaded (~/.mozilla/), not
 firefox binary/libraries etc.
 Note3: Tested with "Don't load tabs until selected", disabled directory
 caches (network connection shouldn't play role here).
+Note4: BTRFS filesystem was used for ~/mozilla, and laptop hdd
 </pre>
 
 Any suggestions or bugreports are wellcome.
