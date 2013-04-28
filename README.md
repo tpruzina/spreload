@@ -33,9 +33,9 @@ SPEEDUP = avgfirefox / avgspreloadfirefox = 1.267 -> ~27% speedup (cold start)
 
 Note1: Only userprofile and extensions were preloaded (~/.mozilla/), not
 firefox binary/libraries etc.<br>
-*Note2: Tested with "Don't load tabs until selected", disabled directory
+Note2: Tested with "Don't load tabs until selected", disabled directory
 caches (network connection shouldn't play role here).<br>
-*Note3: BTRFS filesystem was used for ~/mozilla, and laptop hdd <br>
+Note3: BTRFS filesystem was used for ~/mozilla, and laptop hdd <br>
 
 Any suggestions or bugreports are wellcome.
 
