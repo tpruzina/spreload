@@ -3,8 +3,10 @@ spreload
 
 Simple preload tool
 
-Usage: spreload [[OPT_PATH]] || pipe(stdin)
-
+<pre>
+Usage: spreload [[OPT_PATH]]
+	cat file_with_paths | spreload
+</pre>
 *preloads files into page cache<br>
 *does not (yet) optimize acces to hdd (consecutive reading of blocks)<br>
 *any gain on ssd's is doubtful due to low access times<br>
