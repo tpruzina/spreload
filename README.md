@@ -32,6 +32,8 @@ Note1: Averaged from 3 runs with 3 windows and several tabs (same ff settings),
 in all cases deviation was <500ms compared to average.
 Note2: Only userprofile and extensions were preloaded (~/.mozilla/), not
 firefox binary/libraries etc.
+Note3: Tested with "Don't load tabs until selected", disabled directory
+caches (network connection shouldn't play role here).
 </pre>
 
 Any suggestions or bugreports are wellcome.
