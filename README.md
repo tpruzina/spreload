@@ -28,10 +28,10 @@ TOTAL TIME WITH SPRELOAD = 8999 (ms)
 
 SPEEDUP = avgfirefox / avgspreloadfirefox = 1.267 -> ~27% speedup (cold start)
 
-Note: Averaged from 3 runs with 3 windows and several tabs (same ff settings),
+Note1: Averaged from 3 runs with 3 windows and several tabs (same ff settings),
 in all cases deviation was <500ms compared to average.
-
-
+Note2: Only userprofile and extensions were preloaded (~/.mozilla/), not
+firefox binary/libraries etc.
 </pre>
 
 Any suggestions or bugreports are wellcome.
