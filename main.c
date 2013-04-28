@@ -26,7 +26,7 @@
 struct stat *st = NULL;
 
 
-int load_file(char* path)
+int preload_file(char* path)
 {
 	int fd = open(path, O_RDONLY|O_NOCTTY );
 	if(fd == -1)
@@ -39,7 +39,7 @@ int load_file(char* path)
 	return 0;
 }
 
-int list_dir(char *dir)
+int preload_dir(char *dir)
 {
 	DIR *d;
 	struct dirent *dent;
@@ -49,16 +49,17 @@ int list_dir(char *dir)
 		return -1;
 
 	// skip ".." and "." , end on error
-	readdir(d);
-	readdir(d);
-	
+	if(!readdir(d) || !readdir(d))
+		return -1;
+
+
 	while((dent = readdir(d)) != NULL)
 	{
 		// recurse if entry is directory, preload if file
 		if(dent->d_type == DT_DIR)
-			list_dir(dent->d_name);
+			preload_dir(dent->d_name);
 		else if(dent->d_type == DT_REG)
-			load_file(dent->d_name);
+			preload_file(dent->d_name);
 	}
 
 	closedir(d);
@@ -76,13 +77,13 @@ int parse_stdin()
 			return -1;
 
 		// todo: remove this thingy, removes newline char
-		for(ptr=line; *ptr != '\n' && *ptr != '\0'; ptr++)
+		for(ptr=line; *ptr != '\n' || *ptr != '\0'; ptr++)
 			;
 		*ptr= '\0';
 		
 		// interpret line as 'directory', else read file
-		if(list_dir(line) == -1)
-			if(load_file(line) == -1)
+		if(preload_dir(line) == -1)
+			if(preload_file(line) == -1)
 			{
 				free(line);
 				return -1;;
@@ -101,13 +102,16 @@ int main( int argc, char** argv )
 	
 	if(argc == 1)
 		return parse_stdin();
-	else if (argc == 2)
+	else if (argc >= 2)
 	{
-
+		while(argv++)
+			if(preload_dir(*argv) == -1)
+				if(preload_file(*argv) == -1)
+					return -1;
 	}
 	else
 	{
-		fprintf(stderr,"USAGE: <%s> <FILE/DIR>\n",argv[0]);
+		fprintf(stderr,"USAGE: <%s> <FILE/DIR> ..\n",argv[0]);
 		return -1;
 	}
 	return 0;

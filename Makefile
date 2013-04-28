@@ -1,2 +1,5 @@
+CC=gcc
+CFLAGS=-g3 -ggdb3
+
 all: main.c
-	$(CC) main.c -o preload
+	$(CC) $(CFLAGS) main.c -o preload
