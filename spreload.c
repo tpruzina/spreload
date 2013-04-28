@@ -1,11 +1,8 @@
 /******************************************************************************
  *
- * Load file into cache - lame preloader
+ * Load files into cache - simple preloader
  *
- * Copyright (C) 2003-2009 ascolab GmbH. All Rights Reserved.
- * Web: http://www.ascolab.com
- *
- * Author: Gerhard Gappmeier <gerhard.gappmeier@ascolab.com>
+ * Author: Tomas Pruzina <pruzinat@gmail.com>
  *
  * This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
  * WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
