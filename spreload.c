@@ -17,6 +17,8 @@
 #include <stdlib.h>
 #include <dirent.h> 
 
+#define _GNU_SOURCE
+
 /*
  * Preloads file into page cache
  */
