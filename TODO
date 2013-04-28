@@ -1,5 +1,6 @@
 optimize redundant reads of directories/file (via ATIME manipulation???)
 preload inodes
+optimize access to data blocks of hdds (filesystem dependant - ext4, btrfs...)
 add consistent error reports / errretcodes
 add support for symlinks
 test, test, test
