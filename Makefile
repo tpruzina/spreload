@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-g3 -ggdb3
+CFLAGS=-O2 -g
 
-all: main.c
-	$(CC) $(CFLAGS) main.c -o preload
+all: spreload.c
+	$(CC) $(CFLAGS) spreload.c -o spreload
