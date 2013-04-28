@@ -25,7 +25,9 @@
 
 struct stat *st = NULL;
 
-
+/*
+ * Preloads file into page cache
+ */
 int preload_file(char* path)
 {
 	int fd = open(path, O_RDONLY|O_NOCTTY );
@@ -39,6 +41,10 @@ int preload_file(char* path)
 	return 0;
 }
 
+/*
+ * Recursively scan directory and preload files
+ * return -1 if *dir aint directory
+ */
 int preload_dir(char *dir)
 {
 	DIR *d;
@@ -66,6 +72,9 @@ int preload_dir(char *dir)
 	return 0;
 }
 
+/*
+ * Parse stdin, file/directory per each line
+ */
 int parse_stdin()
 {
 	char *line = NULL;
@@ -86,6 +95,7 @@ int parse_stdin()
 			if(preload_file(line) == -1)
 			{
 				free(line);
+				fprintf(stderr, "Failed to parse input\n");
 				return -1;;
 			}
 	}
@@ -99,20 +109,16 @@ int main( int argc, char** argv )
 	st = malloc(sizeof(struct stat));
 	if(!st)
 		return -1;
-	
 	if(argc == 1)
 		return parse_stdin();
 	else if (argc >= 2)
 	{
-		while(++argv)
+		while(*++argv)
 			if(preload_dir(*argv) == -1)
 				preload_file(*argv);
 	}
 	else
-	{
-		fprintf(stderr,"USAGE: <%s> <FILE/DIR> ..\n",argv[0]);
-		return -1;
-	}
+		printf("USAGE: <%s> <FILE/DIR> ..\n",argv[0]);
 	return 0;
 }
 
