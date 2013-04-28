@@ -10,7 +10,6 @@
  ******************************************************************************/
 
 #include <stdio.h>
-
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -18,22 +17,19 @@
 #include <stdlib.h>
 #include <dirent.h> 
 
-#include <assert.h>
-
-struct stat *st = NULL;
-
 /*
  * Preloads file into page cache
  */
 int preload_file(char* path)
 {
+	struct stat st;
 	int fd = open(path, O_RDONLY|O_NOCTTY );
 	if(fd == -1)
 		return -1;
 	// get file size (amongst other things)
-	fstat(fd, st);
+	fstat(fd, &st);
 	// preload file
-	readahead(fd,0, st->st_size);
+	readahead(fd,0, &st.st_size);
 	close(fd);
 	return 0;
 }
@@ -46,8 +42,9 @@ int preload_dir(char *dir)
 {
 	DIR *d;
 	struct dirent *dent;
-	d = opendir(dir);
 	
+	// open directory, return -1 on fail (file, other cause)
+	d = opendir(dir);
 	if(!d)
 		return -1;
 
@@ -100,14 +97,19 @@ int parse_stdin()
 	return 0;
 }
 
+void my_perror(const char * emsg)
+{
+	fprintf(stderr,"%s\n",emsg);
+	exit(-1);
+}
 
 int main( int argc, char** argv )
 {
-	st = malloc(sizeof(struct stat));
-	if(!st)
-		return -1;
 	if(argc == 1)
-		return parse_stdin();
+	{
+		if(parse_stdin() == -1)
+			my_perror("failed to parse stdin");
+	}
 	else if (argc >= 2)
 	{
 		while(*++argv)
