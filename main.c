@@ -77,7 +77,7 @@ int parse_stdin()
 			return -1;
 
 		// todo: remove this thingy, removes newline char
-		for(ptr=line; *ptr != '\n' || *ptr != '\0'; ptr++)
+		for(ptr=line; *ptr != '\n' && *ptr != '\0'; ptr++)
 			;
 		*ptr= '\0';
 		
@@ -104,10 +104,9 @@ int main( int argc, char** argv )
 		return parse_stdin();
 	else if (argc >= 2)
 	{
-		while(argv++)
+		while(++argv)
 			if(preload_dir(*argv) == -1)
-				if(preload_file(*argv) == -1)
-					return -1;
+				preload_file(*argv);
 	}
 	else
 	{
