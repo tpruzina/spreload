@@ -19,15 +19,12 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <dirent.h> 
 
 #include <assert.h>
 
-#define NUM_FILES	1
-#define BUFFER_SIZE	1024
-
 char * test = "/home/tomas/projects/lictp/test";
-void *buf=NULL;
-struct stat *st;
+struct stat *st = NULL;
 
 
 void load_file(char* path)
@@ -42,16 +39,51 @@ void load_file(char* path)
 	close(fd);
 }
 
-int main( int argc, char** argv )
+int list_dir(char *dir)
 {
-	int ret = 0;
-	buf = malloc(BUFFER_SIZE);	
-	st = malloc(sizeof(struct stat));
-	if(!buf || !st)
+	DIR *d;
+	struct dirent *dent;
+	d = opendir(dir);
+	
+	if(!d)
 		return -1;
-	load_file(test);
 
-	return ret;
+	// skip ".." and "." , end on error
+	if(!readdir(d) || !readdir(d))
+		return -1;
+	
+	while((dent = readdir(d)) != NULL)
+	{
+		// recurse if entry is directory, preload if file
+		if(dent->d_type == DT_DIR)
+			list_dir(dent->d_name);
+		else if(dent->d_type == DT_REG)
+			load_file(dent->d_name);
+	}
+	closedir(d);
 }
 
+int main( int argc, char** argv )
+{
+
+	st = malloc(sizeof(struct stat));
+	if(!st)
+		return -1;
+	
+	if(argc == 1)
+	{
+		// read from pipe
+		;
+	}
+	else if (argc == 2)
+	{
+		//parse file or directory
+	}
+	else
+		return -1;
+
+	list_dir(".");
+	//load_file(test);
+	return 0;
+}
 
