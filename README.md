@@ -15,11 +15,11 @@ Usage: spreload [[OPT_PATH]] || pipe(stdin)
 *Fairly dumb tool ;-)<br>
 
 Firefox startup time measurements<br>
--tested using about:startup plugin
-<pre> https://addons.mozilla.org/en-US/firefox/addon/about-startup/ </pre>
-sessionRestored -- timing was considered
--all caches were dropped prior to startup
-
+-tested using about:startup plugin,
+https://addons.mozilla.org/en-US/firefox/addon/about-startup/<br>
+sessionRestored -- timing was considered <br>
+Averaged from 3 runs and several tabs (same ff settings),
+in all cases deviation was <500ms compared to average.
 <pre>
 $ firefox
 sessionRestored = 11404 (ms)
@@ -29,15 +29,13 @@ time spreload = 0.174 (s*,total)
 TOTAL TIME WITH SPRELOAD = 8999 (ms)
 
 SPEEDUP = avgfirefox / avgspreloadfirefox = 1.267 -> ~27% speedup (cold start)
-
-Note1: Averaged from 3 runs and several tabs (same ff settings),
-in all cases deviation was <500ms compared to average.
-Note2: Only userprofile and extensions were preloaded (~/.mozilla/), not
-firefox binary/libraries etc.
-Note3: Tested with "Don't load tabs until selected", disabled directory
-caches (network connection shouldn't play role here).
-Note4: BTRFS filesystem was used for ~/mozilla, and laptop hdd
 </pre>
+
+Note1: Only userprofile and extensions were preloaded (~/.mozilla/), not
+firefox binary/libraries etc.
+*Note2: Tested with "Don't load tabs until selected", disabled directory
+caches (network connection shouldn't play role here).
+*Note3: BTRFS filesystem was used for ~/mozilla, and laptop hdd
 
 Any suggestions or bugreports are wellcome.
 
