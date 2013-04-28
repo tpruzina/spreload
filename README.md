@@ -3,21 +3,17 @@ spreload
 
 Simple preload tool
 
-<pre>
-Usage: spreload [[OPT_PATH]] || PIPE (stdin)
-		OPT_PATH - path to file or directory
-</pre>
+Usage: spreload [[OPT_PATH]] || pipe(stdin)
 
-*should work on recent linux distros (>=linux 2.4.13,>=glibc-2.3)
-*one simple C file
-*originally written to speed up loading of firefox profile
-*readahead() call used for preloading
-*standard libraries used only (virtually no dependencies on desktop)
-*Fairly dumb tool ;-)
+*should work on recent linux distros (>=linux 2.4.13,>=glibc-2.3)<br>
+*one simple C file<br>
+*originally written to speed up loading of firefox profile<br>
+*readahead() call used for preloading<br>
+*standard libraries used only (virtually no dependencies on desktop)<br>
+*Fairly dumb tool ;-)<br>
 
 Any suggestions or bugreports are wellcome.
 
-License: WTFPLv2
 <pre>
             DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
                     Version 2, December 2004
@@ -35,6 +31,7 @@ License: WTFPLv2
 </pre>
 
 <pre>
+$ tree
 .
 ├── drop_caches.sh
 ├── Makefile
