@@ -14,7 +14,6 @@ Usage: spreload [[OPT_PATH]]
 *originally written to speed up loading of firefox profile<br>
 *readahead() call used for preloading<br>
 *standard libraries used only (virtually no dependencies on desktop)<br>
-*Fairly dumb tool ;-)<br>
 
 Firefox startup time measurements<br>
 -tested using about:startup plugin,
