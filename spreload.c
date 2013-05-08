@@ -33,7 +33,8 @@ int preload_file(char* path)
 	// get file size (amongst other things)
 	fstat(fd, &st);
 	// preload file
-	readahead(fd,0, &st.st_size);
+	if(unlikely(readahead(fd,0, &st.st_size) == -1))
+		fatal_error("readahead() failed");
 	close(fd);
 	return 0;
 }
@@ -53,7 +54,7 @@ int preload_dir(char *dir)
 		return -1;
 
 	// skip ".." and "." , end on error
-	if(!readdir(d) || !readdir(d))
+	if(unlikely(!readdir(d) || !readdir(d)))
 		return -1;
 
 	while((dent = readdir(d)) != NULL)
