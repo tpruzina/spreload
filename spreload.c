@@ -19,6 +19,8 @@
 
 #define _GNU_SOURCE
 
+#include "spreload.h"
+
 /*
  * Preloads file into page cache
  */
@@ -53,7 +55,6 @@ int preload_dir(char *dir)
 	// skip ".." and "." , end on error
 	if(!readdir(d) || !readdir(d))
 		return -1;
-
 
 	while((dent = readdir(d)) != NULL)
 	{
@@ -91,15 +92,14 @@ int parse_stdin()
 			if(preload_file(line) == -1)
 			{
 				free(line);
-				fprintf(stderr, "Failed to parse input\n");
-				return -1;;
+				fatal_error("Failed to parse input\n");
 			}
 	}
 	free(line);
 	return 0;
 }
 
-void my_perror(const char * emsg)
+void fatal_error(char const * emsg)
 {
 	fprintf(stderr,"%s\n",emsg);
 	exit(-1);
@@ -110,7 +110,7 @@ int main( int argc, char** argv )
 	if(argc == 1)
 	{
 		if(parse_stdin() == -1)
-			my_perror("failed to parse stdin");
+			fatal_error("failed to parse stdin");
 	}
 	else if (argc >= 2)
 	{
