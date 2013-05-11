@@ -3,15 +3,12 @@ spreload
 
 Simple preload tool
 
-spreload
+Usage:
 <pre>
-Usage: spreload [[OPT_PATH]]
-	cat file_with_paths | spreload
-</pre>
-
-Spreload-profile
-<pre>
-Usage: spreload-profile <executable>
+	spreload [file|directory]
+	
+	spreload-profile [executable]
+	cat spreload_out | spreload
 </pre>
 Logs files opened by <executable> into spreload_out file, which can be fed
 into spreload tool. <br><br>
