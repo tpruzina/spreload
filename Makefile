@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-O2 -g
 PREFIX=/usr/local
-LD_PREFIX=/usr/lib
+
 all: spreload spreload.so
 
 spreload: spreload.c
@@ -10,14 +10,15 @@ spreload: spreload.c
 spreload.so: spreload_profile.c
 	$(CC) $(CFLAGS) -shared -fPIC spreload_profile.c -o sprofile.so -ldl
 
-
 install: all
-	cp ./spreload ${PREFIX}/bin
-	cp ./sprofile.so ${LD_PREFIX}/
+	cp ./spreload		${PREFIX}/bin
+	cp ./spreload-profile	${PREFIX}/bin
+	cp ./sprofile.so	${PREFIX}/lib
 
 uninstall:
-	rm ${PREFIX}/bin/spreload
-	rm  ${LD_PREFIX}/sprofile.so
+	rm -f ${PREFIX}/bin/spreload
+	rm -f ${PREFIX}/bin/spreload-profile
+	rm -f ${PREFIX}/lib/sprofile.so
 
 clean:
 	rm ./spreload

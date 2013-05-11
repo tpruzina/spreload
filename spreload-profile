@@ -1,0 +1,4 @@
+#!/bin/sh
+LD_PRELOAD=sprofile.so "$@"
+echo "spreload-profile output saved to `pwd`/spreload_out" 
+exit $?
