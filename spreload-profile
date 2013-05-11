@@ -1,5 +1,12 @@
-#!/bin/sh
-LD_PRELOAD=sprofile.so "$@"
+#!/bin/bash
+if [[ $# -ge 1 ]]; then
+	LD_PRELOAD=sprofile.so "$@"
+else
+	echo "No action taken" >&2
+	exit -1
+fi
+
+which $1 >> ./spreload_out
 sort -u -o ./spreload_out ./spreload_out
 echo "spreload-profile output saved to `pwd`/spreload_out" 
 exit $?
