@@ -5,13 +5,12 @@ Simple preload tool
 
 Usage:
 <pre>
-	spreload [file|directory]
+$ spreload [file|directory]
 	
-	spreload-profile [executable]
-	cat spreload_out | spreload
+$ spreload-profile [executable]
+$ cat spreload_out | spreload
 </pre>
-Logs files opened by <executable> into spreload_out file, which can be fed
-into spreload tool. <br><br>
+spreload-profile logs files opened by <executable> into spreload_out file, which can be fed back to spreload tool. <br><br>
 *preloads files into page cache<br>
 *any gain on ssd's is doubtful due to low access times<br>
 *should work on recent linux distros (>=linux 2.4.13,>=glibc-2.3)<br>
