@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include <dirent.h> 
 
-#define _GNU_SOURCE
+#define __GNU_SOURCE
 
 #include "spreload.h"
 

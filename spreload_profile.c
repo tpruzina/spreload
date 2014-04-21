@@ -13,7 +13,7 @@
 #define _GNU_SOURCE
 #include <dlfcn.h>
 #define _FCNTL_H
-#include <bits/fcntl.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 
